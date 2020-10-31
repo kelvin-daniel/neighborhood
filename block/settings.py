@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework.authtoken',
     'rest_framework',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
