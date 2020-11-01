@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
-from unipath import Path
 from decouple import config,Csv
 import cloudinary
 import cloudinary.uploader
