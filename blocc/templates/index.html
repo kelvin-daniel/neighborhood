@@ -4,16 +4,16 @@
 
 {% block content %}
 <div class="container-fluid" style="background: url(https://cdn.pixabay.com/photo/2020/03/18/06/06/street-4942809_960_720.jpg) fixed no-repeat; width: 100%; height: 100vh; background-size: cover;">
-  <h1 class="text-white text-center font-weight-bold" style="padding-top: 120px;">The Block</h1>
-  <form class="form search_xl m-5 p-5" role="search" action="{% url 'search_results'%}">
+  <h1 class="text-white text-center font-weight-bold" style="padding-top: 120px;font-family: 'Chelsea Market', cursive;">The Block.</h1>
+  <form class="form search_xl m-5" role="search" action="{% url 'search_results'%}">
 
     <div class="input-group">
       <input type="search" style="height: 60px; border-radius: 5px;" class="form-control form-control-lg form-control-borderless" placeholder="&#xf3ee;&nbsp; Search" name="blog">
       <br>
      </div>
-     <p class="mt-2" style="color: rgb(204, 204, 204);">Popular Images: landscape, travel,nature, cars, home...</p>
+     <p class="mt-2 text-center" style="color: rgb(204, 204, 204);">Popular Searches: landscape, travel,nature, cars, home...</p>
   </form>
-  <h3 class="text-white text-center font-weight-bolder pt-5 mt-5">Welcome to the hood where everyone belongs</h3>
+  <h3 class="text-white text-center font-weight-bolder pt-5 mt-5" style="font-family: 'Nova Slim', cursive;">Welcome to the hood where everyone belongs.</h3>
 </div>
 
 
@@ -27,7 +27,7 @@
 
   <div class="row m-5">
     {% for health in healthservices %}
-    <div class="col-md-3">
+    <div class="col-md-3 mb-5">
     <div class="card p-2" style="width: 25rem;margin-top:10px;" >
     <div class="card-title">
         <h3 class="font-weight-bold">{{health.name}}</h3>
@@ -50,13 +50,13 @@
     <div class="row">
       <div class="col-md-12 top-div" style="margin-top:40px;">
         <h1 style="color:white;text-align:center;">Authorities</h1>
-  
+        <hr>
       </div>
     </div>
   
   <div class="row">
     {% for authority in authorities %}
-    <div class="col-md-3">
+    <div class="col-md-3  mb-5">
     <div class="card p-2" style="width: 20rem;width: 25rem;margin-top:10px; ">
     <div class="card-title">
         <h3 class="font-weight-bold" data-toggle="modal" data-target="#{{authority.id}}">{{authority.name}}</h3>
@@ -100,83 +100,23 @@
       </div>
       </div>
     </div>
-  
+  <div class="row">
+    <div class="container">
+      <div class="col-md-12">
+        <div class="text-center mr-5 mt-5">
+          <a href="{% url 'new-business' %}" >
+              <button class="btn btn-info float-left" style="height:50px; border-radius: 25px; margin-top: -6px;">Register Business</button>
+          </a>
+        </div>
+    </div>
+    </div>
+  </div>
   </section>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 top-div" style="margin-top:40px;"></div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <a href="{% url 'health'%}">
-      <div class="card" style="width: 22.5rem;height:15rem;">
-        <img class="card-img-top dark" src="{% static 'img/health.jpg'%}" style="width:200px;height:250px;">
-        <div class="centered">
-          <h4 style="color:white; font-size:30px;">Health Services</h4>
-        </div>
-      </div>
-      </a>
+  <footer class="page-footer font-small text-white blue mt-5" style="background-color: black;">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://github.com/kelvin-daniel?tab=repositories" class="text-danger"> The Block</a>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <a href="{% url 'authorities'%}">
-      <div class="card" style="width: 22.5rem;height:15rem;">
-        <img class="card-img-top dark" src="{% static 'img/police.jpg'%}" style="width:34rem;height:28rem;">
-        <div class="centered">
-          <h4 style="color:white; font-size:30px;">Authorities</h4>
-        </div>
-      </div>
-    </a>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-      <a href="{% url 'businesses'%}">
-      <div class="card" style="width: 22.5rem;height:15rem;">
-        <img class="card-img-top dark" src="{% static 'img/businesses.jpg'%}" style="width:34rem;height:28rem;">
-        <div class="centered">
-          <h4 style="color:white; font-size:30px;">Businesses</h4>
-        </div>
-      </div>
-    </a>
-    </div>
-  </div>
-</div>
+  </footer>
 
-<style>
-.dark{
-  filter: brightness(85%);
-}
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.card {
-  position: relative;
-  border: 1px solid #333;
-  margin: 2%;
-  overflow: hidden;
-  width: 540px;
-}
-.card img {
-  max-width: 100%;
 
-  -moz-transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-.card:hover img {
-  -moz-transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-  filter: brightness(50%);
-
-}
-.container {
-  padding-left: 0;
-  padding-right: 0;
-
-}
-
-</style>
 {% endblock %}
