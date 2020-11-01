@@ -9,12 +9,12 @@
 
 </head>
 
-<div class="container">
+<div class="container text-dark">
   <div class="row text-center">
     {% if blogs %}
-    <h2> Found {{blogs|length}} results with the search term "{{message}}"</h2>
+    <h5 class="text-dark font-weight-bold"> Found {{blogs|length}} results with the search term "{{message}}"</h5>
     {% else %}
-    <h2> Found 0 results for the search term "{{message}}"</h2>
+    <h5 class="text-dark font-weight-bold"> Found 0 results for the search term "{{message}}"</h5>
     {% endif %}
   </div>
 
@@ -27,10 +27,13 @@
         {% for blog in blogs%}
         <!-- <div class="custom-card-header"> -->
 
-        <div class="card" style="width: 20rem;">
+        <div class="card">
         <div class="card-body">
           <a href="/view/blog/{{blog.id}}" style="color:black;text-decoration:none;margin:auto;">
             <h5 class="card-title">{{blog.title}}</h5>
+          </a>
+          <a href="/view/blog/{{blog.id}}">
+            <img class="card-img-top mb-4" src="{{blog.image.url}}" >
           </a>
           <a href="/user/{{blog.username}}" style="color:black;text-decoration:none;margin:auto;">
             <h6 class="card-subtitle mb-2 text-muted">{{blog.username}}</h6>

@@ -42,10 +42,13 @@ def index(request):
             return redirect('/accounts/login/')
         current_user=request.user
         profile =Profile.objects.get(username=current_user)
+        healthservices = Health.objects.filter(neighbourhood=profile.neighbourhood)
+        authorities = Authorities.objects.filter(neighbourhood=profile.neighbourhood)
+        businesses = Business.objects.filter(neighbourhood=profile.neighbourhood)
     except ObjectDoesNotExist:
         return redirect('create-profile')
 
-    return render(request,'index.html')
+    return render(request,'index.html',{"healthservices":healthservices, "authorities":authorities, "businesses":businesses})
 
 @login_required(login_url='/accounts/login/')
 def notification(request):

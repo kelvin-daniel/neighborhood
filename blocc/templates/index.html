@@ -3,7 +3,7 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<div class="container-fluid" style="background: url(https://s14.postimg.cc/5i4g1gqwh/Untitled-1.jpg) fixed; width: 100%; height: 100vh;">
+<div class="container-fluid" style="background: url(https://cdn.pixabay.com/photo/2020/03/18/06/06/street-4942809_960_720.jpg) fixed no-repeat; width: 100%; height: 100vh; background-size: cover;">
   <h1 class="text-white text-center font-weight-bold" style="padding-top: 120px;">The Block</h1>
   <form class="form search_xl m-5 p-5" role="search" action="{% url 'search_results'%}">
 
@@ -13,42 +13,105 @@
      </div>
      <p class="mt-2" style="color: rgb(204, 204, 204);">Popular Images: landscape, travel,nature, cars, home...</p>
   </form>
-  <p class="text-white text-center font-weight-bolder pt-5 mt-5">Welcome to the hood where everyone belongs</p>
+  <h3 class="text-white text-center font-weight-bolder pt-5 mt-5">Welcome to the hood where everyone belongs</h3>
 </div>
 
 
+<section style="background-image: url(https://cdn.pixabay.com/photo/2014/12/20/09/18/running-573762_960_720.jpg); background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
+    <div class="row">
+      <div class="col-md-12 top-div" style="margin-top:40px;">
+        <h1 class="text-center font-weight-bold">Health Services</h1>
+        <hr>
+      </div>
+    </div>
+
+  <div class="row m-5">
+    {% for health in healthservices %}
+    <div class="col-md-3">
+    <div class="card p-2" style="width: 25rem;margin-top:10px;" >
+    <div class="card-title">
+        <h3 class="font-weight-bold">{{health.name}}</h3>
+    </div>
+    <div class="body">
+      <img class="card-img mb-2" src="{{health.logo.url}}" height=200 width=100 >
+      <p><span class="bold">Address:</span> {{health.address}}</p>
+      <p><span class="bold">Email:</span> {{health.email}}</p>
+    </div>
+  </div>
+  </div>
+  
+  {% endfor %}
+  </div>
+  </div>
+</section>
+
+
+<section  style="background-image: url(https://cdn.pixabay.com/photo/2017/10/27/10/27/adult-2893847_960_720.jpg); background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
+    <div class="row">
+      <div class="col-md-12 top-div" style="margin-top:40px;">
+        <h1 style="color:white;text-align:center;">Authorities</h1>
+  
+      </div>
+    </div>
+  
+  <div class="row">
+    {% for authority in authorities %}
+    <div class="col-md-3">
+    <div class="card p-2" style="width: 20rem;width: 25rem;margin-top:10px; ">
+    <div class="card-title">
+        <h3 class="font-weight-bold" data-toggle="modal" data-target="#{{authority.id}}">{{authority.name}}</h3>
+    </div>
+    <div class="card-footer">
+      <p>Address: {{authority.address}}</p>
+      <p>Phone Number: {{authority.contact}}</p>
+    </div>
+  </div>
+  </div>
+  {% endfor %}
+  </div>
+  </div>
+  </section>
+
+
+  <section>
+    <div class="row">
+      <div class="col-md-12 top-div" style="margin-top:40px;">
+        <h1 style="text-align:center;">Businesses</h1>
+      </div>
+    </div>
+  
+    <div class="container-fluid pt-5">
+      <div class="row">
+        {% for business in businesses %}
+        <div class="col-md-3">
+        <div class="card p-2" style="width: 25rem;margin-top:10px;">
+        <div class="card-title">
+            <h5 class="font-weight-bold">{{business.name|truncatechars:19}}</h5>
+        </div>
+        <div class="card-body">
+          <img class="card-img mb-2" src="{{business.logo.url}}" alt="" style="width: 100%;">
+          <p><span style="font-weight:bold;">Description:</span> {{business.description|safe}}</p>
+          <p><span class="bold">Address:</span> {{business.address}}</p>
+          <p><span class="bold">Email:</span> {{business.email}}</p>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+      </div>
+      </div>
+    </div>
+  
+  </section>
 
 <div class="container">
   <div class="row">
     <div class="col-md-12 top-div" style="margin-top:40px;"></div>
   </div>
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <a href="{% url 'notifications'%}">
-      <div class="card" style="width: 34rem;height:28rem;">
-        <img class="card-img-top dark" src="{% static 'img/hood.jpeg'%}" style="width:34rem;height:28rem;">
-        <div class="centered">
-          <h4 style="color:white; font-size:30px;">Notifications</h4>
-        </div>
-      </div>
-    </a>
-    </div>
-    <div class=" col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <a href="{% url 'blog'%}">
-      <div class="card" style="width: 34rem;height:28rem;">
-        <img class="card-img-top dark" src="{% static 'img/hood2.jpeg'%}" style="width:34rem;height:28rem;">
-        <div class="centered">
-          <h4 style="color:white; font-size:30px;">Blog Posts</h4>
-        </div>
-      </div>
-      </a>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <a href="{% url 'health'%}">
       <div class="card" style="width: 22.5rem;height:15rem;">
-        <img class="card-img-top dark" src="{% static 'img/health.jpg'%}" style="width:34rem;height:28rem;">
+        <img class="card-img-top dark" src="{% static 'img/health.jpg'%}" style="width:200px;height:250px;">
         <div class="centered">
           <h4 style="color:white; font-size:30px;">Health Services</h4>
         </div>
