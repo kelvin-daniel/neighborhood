@@ -8,6 +8,7 @@ from .forms import notificationsForm,ProfileForm,BlogPostForm,BusinessForm,Comme
 from decouple import config,Csv
 import datetime as dt
 from django.http import JsonResponse
+from .forms import SignupForm
 import json
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -18,6 +19,23 @@ from rest_framework.views import APIView
 
 
 # Create your views here.
+def Signup(request):
+	if request.method == 'POST':
+		form = SignupForm(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data.get('username')
+			email = form.cleaned_data.get('email')
+			password = form.cleaned_data.get('password')
+			User.objects.create_user(username=username, email=email, password=password)
+			return redirect('profile')
+	else:
+		form = SignupForm()
+	
+	context = {
+		'form':form,
+	}
+	return render(request, 'registration/signup.html', context)
+
 def index(request):
     try:
         if not request.user.is_authenticated:
