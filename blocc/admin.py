@@ -8,9 +8,8 @@ class HealthAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(neighbourhood)
-admin.site.register(Health,HealthAdmin)
+admin.site.register(Health)
 admin.site.register(Business)
-admin.site.register(healthservices)
 admin.site.register(Authorities)
 admin.site.register(BlogPost)
 admin.site.register(Profile)
