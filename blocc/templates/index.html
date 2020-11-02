@@ -3,120 +3,128 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<div class="container-fluid" style="background: url(https://cdn.pixabay.com/photo/2020/03/18/06/06/street-4942809_960_720.jpg) fixed no-repeat; width: 100%; height: 100vh; background-size: cover;">
-  <h1 class="text-white text-center font-weight-bold" style="padding-top: 120px;font-family: 'Chelsea Market', cursive;">The Block.</h1>
+<div class="container-fluid"
+  style="background: url(https://cdn.pixabay.com/photo/2020/03/18/06/06/street-4942809_960_720.jpg) fixed no-repeat; width: 100%; height: 100vh; background-size: cover;">
+  <h1 class="text-white text-center font-weight-bold"
+    style="padding-top: 120px;font-family: 'Chelsea Market', cursive;">The Block.</h1>
   <form class="form search_xl m-5" role="search" action="{% url 'search_results'%}">
 
     <div class="input-group">
-      <input type="search" style="height: 60px; border-radius: 5px;" class="form-control form-control-lg form-control-borderless" placeholder="&#xf3ee;&nbsp; Search" name="blog">
+      <input type="search" style="height: 60px; border-radius: 5px;"
+        class="form-control form-control-lg form-control-borderless" placeholder="&#xf3ee;&nbsp; Search" name="blog">
       <br>
-     </div>
-     <p class="mt-2 text-center" style="color: rgb(204, 204, 204);">Popular Searches: landscape, travel,nature, cars, home...</p>
+    </div>
+    <p class="mt-2 text-center" style="color: rgb(204, 204, 204);">Popular Searches: landscape, travel,nature, cars,
+      home...</p>
   </form>
-  <h3 class="text-white text-center font-weight-bolder pt-5 mt-5" style="font-family: 'Nova Slim', cursive;">Welcome to the hood where everyone belongs.</h3>
+  <h3 class="text-white text-center font-weight-bolder pt-5 mt-5" style="font-family: 'Nova Slim', cursive;">Welcome to
+    the hood where everyone belongs.</h3>
 </div>
 
 
-<section style="background-image: url(https://cdn.pixabay.com/photo/2014/12/20/09/18/running-573762_960_720.jpg); background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
-    <div class="row">
-      <div class="col-md-12 top-div" style="margin-top:40px;">
-        <h1 class="text-center font-weight-bold">Health Services</h1>
-        <hr>
-      </div>
+<section
+  style="background-image: url(https://cdn.pixabay.com/photo/2014/12/20/09/18/running-573762_960_720.jpg); background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
+  <div class="row">
+    <div class="col-md-12 top-div" style="margin-top:40px;">
+      <h3 class="text-center font-weight-bold">Health Services</h3>
+      <hr>
     </div>
+  </div>
 
   <div class="row m-5">
     {% for health in healthservices %}
     <div class="col-md-3 mb-5">
-    <div class="card p-2" style="width: 25rem;margin-top:10px;" >
-    <div class="card-title">
-        <h3 class="font-weight-bold">{{health.name}}</h3>
+      <div class="card p-2" style="width: 25rem;margin-top:10px;">
+        <div class="card-title">
+          <h5 class="font-weight-bold">{{health.name| title}}</h5>
+        </div>
+        <div class="body">
+          <img class="card-img mb-2" src="{{health.logo.url}}" height=200 width=100>
+          <p><span class="bold">Address:</span> {{health.address}}</p>
+          <p><span class="bold">Email:</span> {{health.email}}</p>
+        </div>
+      </div>
     </div>
-    <div class="body">
-      <img class="card-img mb-2" src="{{health.logo.url}}" height=200 width=100 >
-      <p><span class="bold">Address:</span> {{health.address}}</p>
-      <p><span class="bold">Email:</span> {{health.email}}</p>
-    </div>
-  </div>
-  </div>
-  
-  {% endfor %}
+
+    {% endfor %}
   </div>
   </div>
 </section>
 
 
-<section  style="background-image: url(https://cdn.pixabay.com/photo/2017/10/27/10/27/adult-2893847_960_720.jpg); background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
-    <div class="row">
-      <div class="col-md-12 top-div" style="margin-top:40px;">
-        <h1 style="color:white;text-align:center;">Authorities</h1>
-        <hr>
-      </div>
+<section
+  style="background-image: url(https://cdn.pixabay.com/photo/2017/10/27/10/27/adult-2893847_960_720.jpg); background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
+  <div class="row">
+    <div class="col-md-12 top-div" style="margin-top:40px;">
+      <h3 style="color:white;text-align:center;">Authorities</h3>
+      <hr>
     </div>
-  
+  </div>
+
   <div class="row">
     {% for authority in authorities %}
     <div class="col-md-3  mb-5">
-    <div class="card p-2" style="width: 20rem;width: 25rem;margin-top:10px; ">
-    <div class="card-title">
-        <h3 class="font-weight-bold" data-toggle="modal" data-target="#{{authority.id}}">{{authority.name}}</h3>
-    </div>
-    <div class="card-footer">
-      <p>Address: {{authority.address}}</p>
-      <p>Phone Number: {{authority.contact}}</p>
-    </div>
-  </div>
-  </div>
-  {% endfor %}
-  </div>
-  </div>
-  </section>
-
-
-  <section>
-    <div class="row">
-      <div class="col-md-12 top-div" style="margin-top:40px;">
-        <h1 style="text-align:center;">Businesses</h1>
-      </div>
-    </div>
-  
-    <div class="container-fluid pt-5">
-      <div class="row">
-        {% for business in businesses %}
-        <div class="col-md-3">
-        <div class="card p-2" style="width: 25rem;margin-top:10px;">
+      <div class="card p-2" style="width: 20rem;width: 25rem;margin-top:10px; ">
         <div class="card-title">
-            <h5 class="font-weight-bold">{{business.name|truncatechars:19}}</h5>
+          <h5 class="font-weight-bold" data-toggle="modal" data-target="#{{authority.id}}">{{authority.name| title}}</h5>
         </div>
-        <div class="card-body">
-          <img class="card-img mb-2" src="{{business.logo.url}}" alt="" style="width: 100%;">
-          <p><span style="font-weight:bold;">Description:</span> {{business.description|safe}}</p>
-          <p><span class="bold">Address:</span> {{business.address}}</p>
-          <p><span class="bold">Email:</span> {{business.email}}</p>
+        <div class="card-footer">
+          <p>{{authority.address}}</p>
+          <p>{{authority.email}}</p>
         </div>
       </div>
+    </div>
+    {% endfor %}
+  </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="row">
+    <div class="col-md-12 top-div" style="margin-top:40px;">
+      <h3 style="text-align:center;">Businesses</h3>
+    </div>
+  </div>
+
+  <div class="container-fluid pt-5">
+    <div class="row">
+      {% for business in businesses %}
+      <div class="col-md-3">
+        <div class="card p-2" style="width: 25rem;margin-top:10px;">
+          <div class="card-title">
+            <h5 class="font-weight-bold">{{business.name|title}}</h5>
+          </div>
+          <div class="card-body">
+            <img class="card-img mb-2" src="{{business.logo.url}}" alt="" style="width: 100%;">
+            <p><span style="font-weight:bold;">Description:</span> {{business.description|safe}}</p>
+            <p><span class="bold">Address:</span> {{business.address}}</p>
+            <p><span class="bold">Email:</span> {{business.email}}</p>
+          </div>
+        </div>
       </div>
       {% endfor %}
-      </div>
-      </div>
     </div>
+  </div>
+  </div>
   <div class="row">
     <div class="container">
       <div class="col-md-12">
         <div class="text-center mr-5 mt-5">
-          <a href="{% url 'new-business' %}" >
-              <button class="btn btn-info float-left" style="height:50px; border-radius: 25px; margin-top: -6px;">Register Business</button>
+          <a href="{% url 'new-business' %}">
+            <button class="btn btn-info float-left" style="height:50px; border-radius: 25px; margin-top: -6px;">Register
+              Business</button>
           </a>
         </div>
-    </div>
+      </div>
     </div>
   </div>
-  </section>
-  <footer class="page-footer font-small text-white blue mt-5" style="background-color: black;">
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+</section>
+<footer class="page-footer font-small text-white blue mt-5" style="background-color: black;">
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
     <a href="https://github.com/kelvin-daniel?tab=repositories" class="text-danger"> The Block</a>
-    </div>
-  </footer>
+  </div>
+</footer>
 
 
 {% endblock %}
