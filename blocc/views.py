@@ -116,14 +116,30 @@ def view_blog(request,id):
 def my_profile(request):
     current_user=request.user
     profile =Profile.objects.get(username=current_user)
+    if request.method=="POST":
+        instance = Profile.objects.get(username=current_user)
+        form =ProfileForm(request.POST,request.FILES,instance=instance)
+        if form.is_valid():
+            profile = form.save(commit = False)
+            profile.username = current_user
+            profile.save()
 
-    return render(request,'user_profile.html',{"profile":profile})
+        return redirect('Index')
+
+    elif Profile.objects.get(username=current_user):
+        profile = Profile.objects.get(username=current_user)
+        form = ProfileForm(instance=profile)
+    else:
+        form = ProfileForm()
+
+    return render(request,'user_profile.html',{"profile":profile, "form":form})
 
 
 @login_required(login_url='/accounts/login/')
 def user_profile(request,username):
     user = User.objects.get(username=username)
     profile =Profile.objects.get(username=user)
+    
 
     return render(request,'user_profile.html',{"profile":profile})
 
