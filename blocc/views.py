@@ -64,6 +64,20 @@ def index(request):
     return render(request,'index.html',{"healthservices":healthservices, "authorities":authorities, "businesses":businesses, "form":form})
 
 @login_required(login_url='/accounts/login/')
+def search_results(request):
+    if 'blog' in request.GET and request.GET["blog"]:
+        search_term = request.GET.get("blog")
+        searched_blogposts = BlogPost.search_blogpost(search_term)
+        message=f"{search_term}"
+
+        print(searched_blogposts)
+
+        return render(request,'search.html',{"message":message,"blogs":searched_blogposts})
+    else:
+        message="You haven't searched for any term"
+        return render(request,'search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')
 def notification(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
@@ -142,7 +156,7 @@ def my_profile(request):
             profile.username = current_user
             profile.save()
 
-        return redirect('Index')
+        return redirect('my-profile')
 
     elif Profile.objects.get(username=current_user):
         profile = Profile.objects.get(username=current_user)
@@ -169,16 +183,23 @@ def create_profile(request):
     return render(request,'profile_form.html',{"form":form})
 
 @login_required(login_url='/accounts/login/')
-def search_results(request):
-    if 'blog' in request.GET and request.GET["blog"]:
-        search_term = request.GET.get("blog")
-        searched_blogposts = BlogPost.search_blogpost(search_term)
-        message=f"{search_term}"
+def update_profile(request):
+    current_user=request.user
+    if request.method=="POST":
+        instance = Profile.objects.get(username=current_user)
+        form =ProfileForm(request.POST,request.FILES,instance=instance)
+        if form.is_valid():
+            profile = form.save(commit = False)
+            profile.username = current_user
+            profile.save()
 
-        print(searched_blogposts)
+        return redirect('my-profile')
 
-        return render(request,'search.html',{"message":message,"blogs":searched_blogposts})
-
+    elif Profile.objects.get(username=current_user):
+        profile = Profile.objects.get(username=current_user)
+        form = ProfileForm(instance=profile)
     else:
-        message="You haven't searched for any term"
-        return render(request,'search.html',{"message":message})
+        form = ProfileForm()
+
+    return render(request,'update_profile.html',{"form":form})
+

@@ -15,6 +15,7 @@ urlpatterns=[
     re_path('view/blog/(\d+)',views.view_blog,name='view_blog'),
     path('my-profile/',views.my_profile, name='my-profile'),
     path('create/profile',views.create_profile, name='create-profile'),
+    path('update/profile',views.update_profile, name='update-profile'),
     path('search/',views.search_results, name='search_results'),
 
 ]
