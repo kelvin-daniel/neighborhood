@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from django.db.models import Q
 import datetime as dt
+from phonenumber_field.modelfields import PhoneNumberField
 
 Priority=(
     ('Informational','Informational'),
@@ -44,7 +45,7 @@ class Business(models.Model):
     name =models.CharField(max_length=100)
     email = models.EmailField()
     address =models.CharField(max_length=100)
-    contact = models.IntegerField()
+    contact = PhoneNumberField()
 
     def __str__(self):
         return self.name
@@ -59,7 +60,7 @@ class Health(models.Model):
     neighbourhood = models.ForeignKey(neighbourhood,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
-    contact = models.IntegerField()
+    contact = PhoneNumberField()
     address =models.CharField(max_length=100)
 
     def __str__(self):
@@ -69,7 +70,7 @@ class Authorities(models.Model):
     neighbourhood = models.ForeignKey(neighbourhood,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
-    contact = models.IntegerField()
+    contact = PhoneNumberField()
     address =models.CharField(max_length=100)
 
     def __str__(self):
