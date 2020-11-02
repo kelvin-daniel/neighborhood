@@ -33,7 +33,7 @@
 
   <div class="row m-5">
     {% for health in healthservices %}
-    <div class="col-md-3 mb-5">
+    <div class="col-md-4 mb-5">
       <div class="card p-2" style="width: 25rem;margin-top:10px;">
         <div class="card-title">
           <h5 class="font-weight-bold">{{health.name| title}}</h5>
@@ -63,7 +63,7 @@
 
   <div class="row">
     {% for authority in authorities %}
-    <div class="col-md-3  mb-5">
+    <div class="col-md-4  mb-5">
       <div class="card p-2" style="width: 20rem;width: 25rem;margin-top:10px; ">
         <div class="card-title">
           <h5 class="font-weight-bold" data-toggle="modal" data-target="#{{authority.id}}">{{authority.name| title}}</h5>
@@ -90,7 +90,7 @@
   <div class="container-fluid pt-5">
     <div class="row">
       {% for business in businesses %}
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="card p-2" style="width: 25rem;margin-top:10px;">
           <div class="card-title">
             <h5 class="font-weight-bold">{{business.name|title}}</h5>
@@ -127,7 +127,7 @@
                   {% if form.errors %}
                       <p>Please enter correct value</p>
                   {% endif %}
-                  <form class="" action="{% url 'update-profile' %}" method="POST" enctype="multipart/form-data">
+                  <form class="" method="POST" enctype="multipart/form-data">
                     {%csrf_token%}
                     {%bootstrap_form form%}
                     <div class="modal-footer d-flex justify-content-center">

@@ -54,7 +54,7 @@ def index(request):
                 business.neighbourhood = profile.neighbourhood
                 business.save()
 
-            return HttpResponseRedirect('/businesses')
+            return HttpResponseRedirect('Index')
 
         else:
             form = BusinessForm()

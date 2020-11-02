@@ -25,7 +25,7 @@
             {% if form.errors %}
                 <p>Please enter correct value</p>
             {% endif %}
-            <form class="" action="{% url 'update-profile' %}" method="POST" enctype="multipart/form-data">
+            <form class="" action="{% url 'blog' %}" method="POST" enctype="multipart/form-data">
               {%csrf_token%}
               {%bootstrap_form form%}
               <div class="modal-footer d-flex justify-content-center">
@@ -40,7 +40,7 @@
 
   <div class="row">
   {% for blog in blogposts %}
-  <div class="col-md-6">
+  <div class="col-md-4">
   <div class="card" style="width: 30rem;margin-top:10px;">
   <div class="card-body">
     <a href="/view/blog/{{blog.id}}" style="color:black;text-decoration:none;margin:auto;">

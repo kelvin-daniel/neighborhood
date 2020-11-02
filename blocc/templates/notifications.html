@@ -19,7 +19,7 @@
           {% if form.errors %}
               <p>Please enter correct value</p>
           {% endif %}
-          <form class="" action="{% url 'update-profile' %}" method="POST" enctype="multipart/form-data">
+          <form class="" action="{% url 'notifications' %}" method="POST" enctype="multipart/form-data">
             {%csrf_token%}
             {%bootstrap_form form%}
             <div class="modal-footer d-flex justify-content-center">
