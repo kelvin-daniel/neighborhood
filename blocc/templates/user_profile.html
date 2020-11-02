@@ -18,12 +18,12 @@
   <p class="text-dark" style="font-size:20px;color: black; font-weight:bold;">{{profile.description |safe}}</p>
   <p class="text-dark card-text">{{profile.email}}</p>
   
-  <a data-toggle="modal" data-target="#modalSubscriptionForm" style="border-radius: 25px;" class="btn btn-default" type="button" name="button" >Update Profile</a>
+  <a data-toggle="modal" data-target="#modalSubscriptionForm" style="border-radius: 25px;" class="btn btn-sm btn-info" type="button" name="button" >Update Profile</a>
   <div style='color:black' class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <h4 class="modal-title w-100 font-weight-bold " style="color:black">Edit Profile</h4>
+          <h4 class="modal-title w-100 font-weight-bold " style="color:black">Update Profile</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -38,7 +38,7 @@
             {%csrf_token%}
             {%bootstrap_form form%}
             <div class="modal-footer d-flex justify-content-center">
-              <button type="submit" class="btn btn-default">Update <i class="fas fa-paper-plane-o ml-1"></i></button>
+              <button type="submit" class="btn btn-info btn-sm" style="border-radius: 25px;">Update <i class="fas fa-paper-plane-o ml-1"></i></button>
             </div>
           </form>
         </div>

@@ -64,7 +64,20 @@ def blog(request):
     profile=Profile.objects.get(username=current_user)
     blogposts = BlogPost.objects.filter(neighbourhood=profile.neighbourhood)
 
-    return render(request,'blog.html',{"blogposts":blogposts})
+    if request.method=="POST":
+        form =BlogPostForm(request.POST,request.FILES)
+        if form.is_valid():
+            blogpost = form.save(commit = False)
+            blogpost.username = current_user
+            blogpost.neighbourhood = profile.neighbourhood
+            blogpost.avatar = profile.avatar
+            blogpost.save()
+
+        return HttpResponseRedirect('/blog')
+
+    else:
+        form = BlogPostForm()
+    return render(request,'blog.html',{"blogposts":blogposts, "form":form})
 
 @login_required(login_url='/accounts/login/')
 def health(request):
