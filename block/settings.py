@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'blocc',
     'bootstrap4',
     'cloudinary',
+    'phonenumber_field',
     'crispy_forms',
     'rest_framework.authtoken',
     'rest_framework',
