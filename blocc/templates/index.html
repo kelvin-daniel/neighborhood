@@ -111,10 +111,33 @@
     <div class="container">
       <div class="col-md-12">
         <div class="text-center mr-5 mt-5">
-          <a href="{% url 'new-business' %}">
-            <button class="btn btn-sm btn-info float-left" style="border-radius: 25px;">Register
-            your  Business</button>
-          </a>
+          <a data-toggle="modal" data-target="#modalSubscriptionForm" style="border-radius: 25px;" class="btn btn-sm btn-info" type="button" name="button" >Add your Business</a>
+          <div style='color:black' class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header text-center">
+                  <h4 class="modal-title w-100 font-weight-bold " style="color:black"></h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body mx-3">
+                  {{form.media}}
+
+                  {% if form.errors %}
+                      <p>Please enter correct value</p>
+                  {% endif %}
+                  <form class="" action="{% url 'update-profile' %}" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    {%bootstrap_form form%}
+                    <div class="modal-footer d-flex justify-content-center">
+                      <button type="submit" class="btn btn-info btn-sm text-center" style="border-radius: 25px;">Add<i class="fas fa-paper-plane-o ml-1"></i></button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

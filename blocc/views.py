@@ -45,10 +45,23 @@ def index(request):
         healthservices = Health.objects.filter(neighbourhood=profile.neighbourhood)
         authorities = Authorities.objects.filter(neighbourhood=profile.neighbourhood)
         businesses = Business.objects.filter(neighbourhood=profile.neighbourhood)
+
+        if request.method=="POST":
+            form =BusinessForm(request.POST,request.FILES)
+            if form.is_valid():
+                business = form.save(commit = False)
+                business.owner = current_user
+                business.neighbourhood = profile.neighbourhood
+                business.save()
+
+            return HttpResponseRedirect('/businesses')
+
+        else:
+            form = BusinessForm()
     except ObjectDoesNotExist:
         return redirect('create-profile')
 
-    return render(request,'index.html',{"healthservices":healthservices, "authorities":authorities, "businesses":businesses})
+    return render(request,'index.html',{"healthservices":healthservices, "authorities":authorities, "businesses":businesses, "form":form})
 
 @login_required(login_url='/accounts/login/')
 def notification(request):
@@ -56,7 +69,23 @@ def notification(request):
     profile=Profile.objects.get(username=current_user)
     all_notifications = notifications.objects.filter(neighbourhood=profile.neighbourhood)
 
-    return render(request,'notifications.html',{"notifications":all_notifications})
+    if request.method=="POST":
+        form =notificationsForm(request.POST,request.FILES)
+        if form.is_valid():
+            notification = form.save(commit = False)
+            notification.author = current_user
+            notification.neighbourhood = profile.neighbourhood
+            notification.save()
+
+            if notification.priority == 'High Priority':
+                send_priority_email(profile.name,profile.email,notification.title,notification.notification,notification.author,notification.neighbourhood)
+
+        return HttpResponseRedirect('/notifications')
+
+
+    else:
+        form = notificationsForm()
+    return render(request,'notifications.html',{"notifications":all_notifications, "form":form})
 
 @login_required(login_url='/accounts/login/')
 def blog(request):
