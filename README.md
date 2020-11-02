@@ -1,8 +1,8 @@
 # The Block
-.......Description here...........
+Django app that allows users to keep tabs on what is going on in their neighbourhood. users can share information, articles as well  as view businesses and amenities in their neighbourhood.
 
 ## Deployed Site Link
-[Instagram](https://      .herokuapp.com/)
+[Instagram](https://theblock.herokuapp.com/)
 username: admin
 pass: admin
 
