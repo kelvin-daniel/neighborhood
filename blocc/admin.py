@@ -7,10 +7,10 @@ class HealthAdmin(admin.ModelAdmin):
     filter_horizontal =['healthservices']
 
 # Register your models here.
-admin.site.register(neighbourhood)
+admin.site.register(Block)
 admin.site.register(Health)
 admin.site.register(Business)
 admin.site.register(Authorities)
-admin.site.register(BlogPost)
+admin.site.register(Post)
 admin.site.register(Profile)
-admin.site.register(notifications)
+admin.site.register(Notification)

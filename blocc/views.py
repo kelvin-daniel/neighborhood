@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import neighbourhood,Business,Health,Authorities,BlogPost,Profile,notifications,Comment
+from .models import *
 from .email import send_priority_email
-from .forms import notificationsForm,ProfileForm,BlogPostForm,BusinessForm,CommentForm
+from .forms import *
 from decouple import config,Csv
 import datetime as dt
 from django.http import JsonResponse
@@ -41,19 +41,19 @@ def index(request):
             return redirect('/accounts/login/')
         current_user=request.user
         profile =Profile.objects.get(username=current_user)
-        healthservices = Health.objects.filter(neighbourhood=profile.neighbourhood)
-        authorities = Authorities.objects.filter(neighbourhood=profile.neighbourhood)
-        businesses = Business.objects.filter(neighbourhood=profile.neighbourhood)
+        healthservices = Health.objects.filter(block=profile.block)
+        authorities = Authorities.objects.filter(block=profile.block)
+        businesses = Business.objects.filter(block=profile.block)
 
         if request.method=="POST":
             form =BusinessForm(request.POST,request.FILES)
             if form.is_valid():
                 business = form.save(commit = False)
                 business.owner = current_user
-                business.neighbourhood = profile.neighbourhood
+                business.block = profile.block
                 business.save()
 
-            return HttpResponseRedirect('Index')
+            return HttpResponseRedirect('/')
 
         else:
             form = BusinessForm()
@@ -80,45 +80,45 @@ def search_results(request):
 def notification(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
-    all_notifications = notifications.objects.filter(neighbourhood=profile.neighbourhood)
+    all_notifications = Notification.objects.filter(block=profile.block)
 
     if request.method=="POST":
-        form =notificationsForm(request.POST,request.FILES)
+        form =NotificationsForm(request.POST,request.FILES)
         if form.is_valid():
             notification = form.save(commit = False)
             notification.author = current_user
-            notification.neighbourhood = profile.neighbourhood
+            notification.block = profile.block
             notification.save()
 
             if notification.priority == 'High Priority':
-                send_priority_email(profile.name,profile.email,notification.title,notification.notification,notification.author,notification.neighbourhood)
+                send_priority_email(profile.name,profile.email,notification.title,notification.notification,notification.author,notification.block)
 
         return HttpResponseRedirect('/notifications')
 
 
     else:
-        form = notificationsForm()
+        form = NotificationsForm()
     return render(request,'notifications.html',{"notifications":all_notifications, "form":form})
 
 @login_required(login_url='/accounts/login/')
 def blog(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
-    blogposts = BlogPost.objects.filter(neighbourhood=profile.neighbourhood)
+    blogposts = Post.objects.filter(block=profile.block)
 
     if request.method=="POST":
-        form =BlogPostForm(request.POST,request.FILES)
+        form =PostForm(request.POST,request.FILES)
         if form.is_valid():
             blogpost = form.save(commit = False)
             blogpost.username = current_user
-            blogpost.neighbourhood = profile.neighbourhood
+            blogpost.block = profile.block
             blogpost.avatar = profile.avatar
             blogpost.save()
 
         return HttpResponseRedirect('/blog')
 
     else:
-        form = BlogPostForm()
+        form = PostForm()
     return render(request,'blog.html',{"blogposts":blogposts, "form":form})
 
 @login_required(login_url='/accounts/login/')
@@ -130,7 +130,7 @@ def view_blog(request,id):
     except:
         comments =[]
 
-    blog = BlogPost.objects.get(id=id)
+    blog = Post.objects.get(id=id)
     if request.method =='POST':
         form = CommentForm(request.POST,request.FILES)
         if form.is_valid():

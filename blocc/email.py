@@ -1,6 +1,6 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from .models import notifications,Profile
+from .models import Notification,Profile
 
 
 def send_priority_email(name,receiver,title,message,author,neighbourhood):

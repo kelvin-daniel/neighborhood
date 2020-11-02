@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import notifications,Business,Profile,BlogPost,Comment
+from .models import *
 from django.core.exceptions import ValidationError
 
 def ForbiddenUsers(value):
@@ -48,25 +48,25 @@ class SignupForm(forms.ModelForm):
 			self._errors['password'] = self.error_class(['Passwords do not match. Try again'])
 		return self.cleaned_data
 
-class notificationsForm(forms.ModelForm):
+class NotificationsForm(forms.ModelForm):
     class Meta:
-        model=notifications
-        exclude=['author','neighbourhood','post_date']
+        model=Notification 
+        exclude=['author','block','post_date']
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model=Profile
         exclude=['username']
 
-class BlogPostForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
-        model=BlogPost
-        exclude=['username','neighbourhood','avatar']
+        model=Post
+        exclude=['username','block','avatar']
 
 class BusinessForm(forms.ModelForm):
     class Meta:
         model=Business
-        exclude=['owner','neighbourhood']
+        exclude=['owner','block']
 
 class CommentForm(forms.ModelForm):
     class Meta:

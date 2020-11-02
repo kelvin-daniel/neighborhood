@@ -1,44 +1,46 @@
 from django.test import TestCase
-from .models import neighbourhood,healthservices
+from .models import *
 from django.contrib.auth.models import User
 import datetime as dt
 # Create your tests here.
 class neighbourhoodTestClass(TestCase):
     def setUp(self):
-        self.Kahawa = neighbourhood(neighbourhood='Kahawa')
+        self.donholm = neighbourhood(neighbourhood='donholm')
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.Kahawa,neighbourhood))
+        self.assertTrue(isinstance(self.donholm,neighbourhood))
 
     def tearDown(self):
         neighbourhood.objects.all().delete()
 
     def test_save_method(self):
-        self.Kahawa.save_neighbourhood()
+        self.donholm.save_neighbourhood()
         hood = neighbourhood.objects.all()
         self.assertTrue(len(hood)>0)
 
     def test_delete_method(self):
-        self.Kahawa.delete_neighbourhood('Kahawa')
+        self.donholm.delete_neighbourhood('donholm')
         hood = neighbourhood.objects.all()
         self.assertTrue(len(hood)==0)
+    
 
-class healthservicesTestClass(TestCase):
+class BusinessTestClass(TestCase):
     def setUp(self):
-        self.Radiotherapy = healthservices(healthservices='Radiotherapy')
+        self.business = Business(name='baazar')
 
-    def test_instance(self):
-        self.assertTrue(isinstance(self.Radiotherapy,healthservices))
+    def test_hood_instance(self):
+        self.assertTrue(isinstance(self.business, Business))
 
-    def tearDown(self):
-        healthservices.objects.all().delete()
+    def test_save_business_method(self):
+        self.business.save_business()
+        business_object = Business.objects.all()
+        self.assertTrue(len(business_object) > 0)
 
-    def test_save_method(self):
-        self.Radiotherapy.save_healthservices()
-        health = healthservices.objects.all()
-        self.assertTrue(len(health)>0)
+    def test_delete_business_method(self):
+        self.business.save_business()
+        business_object = Business.objects.all()
+        self.business.delete_business()
+        business_object = Business.objects.all()
+        self.assertTrue(len(business_object) == 0)
 
-    def test_delete_method(self):
-        self.Radiotherapy.delete_healthservices('Radiotherapy')
-        health = healthservices.objects.all()
-        self.assertTrue(len(health)==0)reate your tests here.
+

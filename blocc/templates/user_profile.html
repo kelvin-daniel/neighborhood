@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {%load bootstrap4%}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <div class="container">
@@ -9,12 +10,12 @@
   </div>
 
 <div class="text-center">
-  <div class="user-image">
-    <img src="{{profile.avatar.url}}" class="gallery-image" alt=""  width=30 height=30>
+  <div class="text-center">
+    <img src="{{profile.avatar.url}}" class="text-center" alt="" style="height: 200px; width: 200px; border-radius: 50%;">
   </div>
   
   <p class="text-dark" style="font-size: 22px; font-weight:bold;margin:auto; padding:2px;">{{profile.username}}</p>
-  <p class="text-dark">{{profile.neighbourhood}}</p>
+  <p class="text-dark">{{profile.block}}</p>
   <p class="text-dark" style="font-size:20px;color: black; font-weight:bold;">{{profile.description |safe}}</p>
   <p class="text-dark card-text">{{profile.email}}</p>
   
@@ -36,7 +37,7 @@
           {% endif %}
           <form class="" action="{% url 'my-profile' %}" method="POST" enctype="multipart/form-data">
             {%csrf_token%}
-            {%bootstrap_form form%}
+            {{ form|crispy }}
             <div class="modal-footer d-flex justify-content-center">
               <button type="submit" class="btn btn-info btn-sm" style="border-radius: 25px;">Update <i class="fas fa-paper-plane-o ml-1"></i></button>
             </div>

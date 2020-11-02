@@ -4,6 +4,7 @@ from tinymce.models import HTMLField
 from django.db.models import Q
 import datetime as dt
 from phonenumber_field.modelfields import PhoneNumberField
+from cloudinary.models import CloudinaryField
 
 Priority=(
     ('Informational','Informational'),
@@ -11,36 +12,36 @@ Priority=(
 )
 
 # Create your models here.
-class neighbourhood(models.Model):
-    neighbourhood= models.CharField(max_length=100)
+class Block(models.Model):
+    block= models.CharField(max_length=100)
 
     def __str__(self):
-        return self.neighbourhood
+        return self.block
 
-    def save_neighbourhood(self):
+    def save_block(self):
         self.save()
 
     @classmethod
-    def delete_neighbourhood(cls,neighbourhood):
-        cls.objects.filter(neighbourhood=neighbourhood).delete()
+    def delete_block(cls,block):
+        cls.objects.filter(block=block).delete()
 
 
-class notifications(models.Model):
+class Notification(models.Model):
     title = models.CharField(max_length=100)
     notification = HTMLField()
-    priority = models.CharField(max_length=15,choices=Priority,default="Informational")
     author = models.ForeignKey(User,on_delete=models.CASCADE)
-    neighbourhood = models.ForeignKey(neighbourhood,on_delete=models.CASCADE)
+    block = models.ForeignKey(Block,on_delete=models.CASCADE)
     post_date = models.DateTimeField(auto_now_add=True)
+    priority = models.CharField(max_length=15,choices=Priority,default="Informational")
 
     def __str__(self):
         return self.title
 
 
 class Business(models.Model):
-    logo = models.ImageField(upload_to='businesslogo/')
+    logo = CloudinaryField('image', null=True)
     description = HTMLField()
-    neighbourhood = models.ForeignKey(neighbourhood,on_delete=models.CASCADE)
+    block = models.ForeignKey(Block,on_delete=models.CASCADE)
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
@@ -52,12 +53,12 @@ class Business(models.Model):
 
     @classmethod
     def search_business(cls,search_term):
-        businesses = cls.objects.filter(Q(name__icontains=search_term) | Q(neighbourhood__neighbourhood=search_term) | Q(description__icontains=search_term))
+        businesses = cls.objects.filter(Q(name__icontains=search_term) | Q(block__block=search_term) | Q(description__icontains=search_term))
         return businesses
 
 class Health(models.Model):
-    logo = models.ImageField(upload_to='healthlogo/')
-    neighbourhood = models.ForeignKey(neighbourhood,on_delete=models.CASCADE)
+    logo = CloudinaryField('image', null=True)
+    block = models.ForeignKey(Block,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
     contact = PhoneNumberField()
@@ -67,7 +68,7 @@ class Health(models.Model):
         return self.name
 
 class Authorities(models.Model):
-    neighbourhood = models.ForeignKey(neighbourhood,on_delete=models.CASCADE)
+    block = models.ForeignKey(Block,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
     contact = PhoneNumberField()
@@ -78,9 +79,9 @@ class Authorities(models.Model):
 
 
 class Profile(models.Model):
-    avatar = models.ImageField(upload_to='avatars/')
+    avatar = CloudinaryField('image', null=True)
     description = HTMLField()
-    neighbourhood = models.ForeignKey(neighbourhood,on_delete=models.CASCADE)
+    block = models.ForeignKey(Block,on_delete=models.CASCADE)
     username = models.ForeignKey(User,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
@@ -88,14 +89,14 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
-class BlogPost(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=150)
-    image = models.ImageField(upload_to='post/')
+    image = CloudinaryField('image', null=True)
     post = HTMLField()
     username = models.ForeignKey(User,on_delete=models.CASCADE)
-    neighbourhood= models.ForeignKey(neighbourhood,on_delete=models.CASCADE)
+    block= models.ForeignKey(Block,on_delete=models.CASCADE)
     post_date = models.DateTimeField(auto_now_add=True)
-    avatar = models.ImageField(upload_to='avatars/')
+    avatar = CloudinaryField('image', null=True)
 
     def __str__(self):
         return self.title
@@ -104,4 +105,4 @@ class BlogPost(models.Model):
 class Comment(models.Model):
     comment = models.CharField(max_length=300)
     username = models.ForeignKey(User,on_delete=models.CASCADE)
-    post = models.ForeignKey(BlogPost,on_delete=models.CASCADE)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
