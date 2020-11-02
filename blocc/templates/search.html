@@ -11,40 +11,35 @@
 
 <div class="container text-dark">
   <div class="row text-center">
-    {% if blogs %}
-    <h5 class="text-dark font-weight-bold"> Found {{blogs|length}} results with the search term "{{message}}"</h5>
+    {% if businesses %}
+    <h6 class="text-dark font-weight-bold"> Found {{businesses|length}} business related to "{{message}}"</h6>
+    <hr>
     {% else %}
-    <h5 class="text-dark font-weight-bold"> Found 0 results for the search term "{{message}}"</h5>
+    <h6 class="text-dark font-weight-bold"> Found 0 business related to "{{message}}"</h6>
     {% endif %}
   </div>
 
 
-  {% if blogs %}
+  {% if businesses %}
   <div class="text-center">
     <div class="panel" style="width: 40rem;">
       <!-- <div class="custom-card-header"> -->
       <div class="panel-body">
-        {% for blog in blogs%}
-        <!-- <div class="custom-card-header"> -->
-
-        <div class="card">
-        <div class="card-body">
-          <a href="/view/blog/{{blog.id}}" style="color:black;text-decoration:none;margin:auto;">
-            <h5 class="card-title">{{blog.title}}</h5>
-          </a>
-          <a href="/view/blog/{{blog.id}}">
-            <img class="card-img-top mb-4" src="{{blog.image.url}}" >
-          </a>
-          <a href="/user/{{blog.username}}" style="color:black;text-decoration:none;margin:auto;">
-            <h6 class="card-subtitle mb-2 text-muted">{{blog.username}}</h6>
-          </a>
-          <p class="card-text">{{blog.post|truncatechars:200 | safe}}</p>
-          <a href="/view/blog/{{blog.id}}" class="card-link">Continue reading</a>
+        {% for business in businesses %}
+      <div class="col-md-4">
+        <div class="card p-2" style="width: 25rem;margin-top:10px;">
+          <div class="card-title">
+            <h5 class="font-weight-bold">{{business.name|title}}</h5>
+          </div>
+          <div class="card-body">
+            <img class="card-img mb-2" src="{{business.logo.url}}" alt="" style="width: 100%;">
+            <p><span style="font-weight:bold;">Description:</span> {{business.description|safe}}</p>
+            <p><span class="bold">Address:</span> {{business.address}}</p>
+            <p><span class="bold">Email:</span> {{business.email}}</p>
+          </div>
         </div>
       </div>
-        <!-- </div> -->
-
-        {% endfor %}
+      {% endfor %}
 
       </div>
     </div>
