@@ -14,7 +14,7 @@
         class="text-center form-control form-control-lg form-control-borderless" placeholder="Search" name="business">
       <br>
     </div>
-    <p class="mt-2 text-center" style="color: rgb(204, 204, 204);">Popular Searches: landscape, travel,nature, cars,
+    <p class="mt-2 text-center font-weight-bold text-warning">Popular Searches: pizza, mama mboga, baazar, cars,
       home...</p>
   </form>
   <h3 class="text-white text-center font-weight-bolder pt-5 mt-5" style="font-family: 'Nova Slim', cursive;">Welcome to
@@ -40,17 +40,14 @@
         </div>
         <div class="body">
           <img class="card-img mb-2" src="{{health.logo.url}}" height=200 width=100>
-          <p><span class="bold">Address:</span> {{health.address}}</p>
-          <p><span class="bold">Email:</span> {{health.email}}</p>
+          <p><span class="bold">Address:</span> {{health.address}} <br> {{health.email}} <br> {{health.contact}}</p>
         </div>
       </div>
     </div>
-
     {% endfor %}
   </div>
   </div>
 </section>
-
 
 <section
   style="background-image: url(https://cdn.pixabay.com/photo/2017/10/27/10/27/adult-2893847_960_720.jpg); background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
@@ -69,8 +66,7 @@
           <h5 class="font-weight-bold" data-toggle="modal" data-target="#{{authority.id}}">{{authority.name| title}}</h5>
         </div>
         <div class="card-footer">
-          <p>{{authority.address}}</p>
-          <p>{{authority.email}}</p>
+          <p>{{authority.address}} <br> {{authority.email}} <br> {{authority.contact}}</p>
         </div>
       </div>
     </div>
@@ -96,10 +92,8 @@
             <h5 class="font-weight-bold">{{business.name|title}}</h5>
           </div>
           <div class="card-body">
-            <img class="card-img mb-2" src="{{business.logo.url}}" alt="" style="width: 100%;">
-            <p><span style="font-weight:bold;">Description:</span> {{business.description|safe}}</p>
-            <p><span class="bold">Address:</span> {{business.address}}</p>
-            <p><span class="bold">Email:</span> {{business.email}}</p>
+            <img class="card-img mb-2" src="{{business.logo.url}}" alt="" style="height: 200px; width: 100%;">
+            <p>{{business.description|safe}} {{business.address}} <br> {{business.contact}} <br> {{business.email}}</p>
           </div>
         </div>
       </div>

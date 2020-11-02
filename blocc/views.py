@@ -12,7 +12,6 @@ from .forms import SignupForm
 import json
 from django.db.models import Q
 from django.contrib.auth.models import User
-
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # from .serializer import
@@ -27,7 +26,7 @@ def Signup(request):
 			email = form.cleaned_data.get('email')
 			password = form.cleaned_data.get('password')
 			User.objects.create_user(username=username, email=email, password=password)
-			return redirect('profile')
+			return redirect('create-profile')
 	else:
 		form = SignupForm()
 	
