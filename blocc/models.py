@@ -6,11 +6,6 @@ import datetime as dt
 from phonenumber_field.modelfields import PhoneNumberField
 from cloudinary.models import CloudinaryField
 
-Priority=(
-    ('Informational','Informational'),
-    ('High Priority','High Priority'),
-)
-
 # Create your models here.
 class Block(models.Model):
     block= models.CharField(max_length=100)
